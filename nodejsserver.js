@@ -2,7 +2,6 @@
 // sudo apt-get install nodejs
 // sudo apt-get install npm
 // sudo nodejs nodejsserver.js &
-
 function getIPAddress() {
   var interfaces = require('os').networkInterfaces();
   var ipaddr = '';
@@ -18,7 +17,7 @@ function getIPAddress() {
 }
 var ipaddr = getIPAddress();
 var http = require('http');
-var port = 8080;
+var port = process.env.PORT || 8080;
 var server = http.createServer(function(req, res) {
         var dtf = new Date().toISOString();
         res.writeHead(200);
