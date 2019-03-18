@@ -5,19 +5,20 @@
 
 function getIPAddress() {
   var interfaces = require('os').networkInterfaces();
+  var ipaddr = '';
   for (var devName in interfaces) {
     var iface = interfaces[devName];
     for (var i = 0; i < iface.length; i++) {
-      var alias = iface[i];
-      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
-        return alias.address;
+        var alias = iface[i];
+        if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
+          ipaddr = ipaddr + devName + ': ' + alias.address + '; ';
     }
   }
-  return '0.0.0.0';
+  return ipaddr;
 }
 var ipaddr = getIPAddress();
 var http = require('http');
-var port = 80;
+var port = 8080;
 var server = http.createServer(function(req, res) {
         var dtf = new Date().toISOString();
         res.writeHead(200);
